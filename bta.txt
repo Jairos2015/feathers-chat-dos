@@ -1,0 +1,156 @@
+1)Crear carpeta
+
+>md feathers-chat
+>cd feathers-chat
+
+2) Usar generador de estructura
+
+>feathers generate app
+
+3) Ejecutar la app
+
+>npm start
+
+4)  Ejecutar pruebas
+
+>npm test
+
+npm test
+
+> feathers-chat@0.0.0 test C:\Users\jairo\node\feathers\feathers-chat
+> npm run eslint && npm run mocha
+
+
+> feathers-chat@0.0.0 eslint C:\Users\jairo\node\feathers\feathers-chat
+> eslint src/. test/. --config .eslintrc.json
+
+
+> feathers-chat@0.0.0 mocha C:\Users\jairo\node\feathers\feathers-chat
+> mocha test/ --recursive
+
+
+
+  Feathers application tests
+    √ starts and shows the index page (78ms)
+    404
+      √ shows a 404 HTML page
+      √ shows a 404 JSON error without stack trace
+
+
+  3 passing (203ms)
+
+5) Generando un servicio
+
+>feathers generate service
+
+feathers generate service
+? What kind of service is it? NeDB
+? What is the name of the service? messages
+? Which path should the service be registered on? /messages
+? What is the database connection string? nedb://../data
+    force config\default.json
+   create src\services\messages\messages.service.js
+    force src\services\index.js
+   create src\models\messages.model.js
+   create src\services\messages\messages.hooks.js
+   create src\services\messages\messages.filters.js
+   create test\services\messages.test.js
+feathers-chat@0.0.0 C:\Users\jairo\node\feathers\feathers-chat
+`-- feathers-nedb@2.6.2
+  +-- feathers-query-filters@2.1.2
+  `-- lodash.omit@4.5.0
+
+npm WARN feathers-chat@0.0.0 No repository field.
+npm WARN feathers-chat@0.0.0 No license field.
+
+6) npm start
+
+Y vemos en el navegador
+localhost:3030
+localhost:3030/messages
+
+{"total":0,"limit":10,"skip":0,"data":[]}
+
+
+7) Por curl
+
+curl -H 'Content-Type: application/json' --data-binary '{ "name": "Curler", "text": "Hello from the commend line!" }' http://localhost:3030/messages/
+La anterior ok.
+Respuest en
+localhost:3030/messages
+
+{"total":1,"limit":10,"skip":0,"data":[{"'{":"","_id":"TkPQVN66qW76PV4v"}]}
+
+curl -H "Content-Type: application/json" -X POST -d '{"email":"jane.doe@gmail.com","password":"X2y6","role":"admin"}' http://localhost:3030/users
+
+8)Resouestas en consola
+
+You are using the default filter for the messages service. For more information about event filters see https://docs.feathersjs.com/api/events.html#event-filtering
+info: Feathers application started on localhost:3030
+info: after: messages - Method: find
+info: after: messages - Method: find
+info: after: messages - Method: find
+info: after: messages - Method: find
+info: after: messages - Method: create
+info: after: messages - Method: find
+
+9) npm start cabiando index.html y creando en /public app.js
+
+En el navegador
+localhost:3030/messages
+
+{"total":2,"limit":10,"skip":0,"data":[{"'{":"","_id":"TkPQVN66qW76PV4v"},{"name":"Test user","text":"Hello world!","_id":"f1ozXuyA7ctUByLj"}]}
+
+En consola:
+
+info: after: messages - Method: create
+info: after: messages - Method: find
+info: after: messages - Method: find
+
+
+
+10) Autenticacion
+
+feathers generate authentication
+feathers generate authentication
+? What authentication providers do you want to use? Other PassportJS strategies
+not in this list can still be configured manually. Username + Password (Local)
+? What is the name of the user (entity) service? users
+? What kind of service is it? NeDB
+    force config\default.json
+   create src\authentication.js
+    force src\app.js
+   create src\services\users\users.service.js
+    force src\services\index.js
+   create src\models\users.model.js
+   create src\services\users\users.hooks.js
+   create src\services\users\users.filters.js
+   create test\services\users.test.js
+
+npm WARN feathers-chat@0.0.0 No repository field.
+npm WARN feathers-chat@0.0.0 No license field.
+
+11) Crear Hook
+
+>feathers generate hook
+
+>feathers generate hook
+? What is the name of the hook? process-message
+? What kind of hook should it be? before
+? What service(s) should this hook be for (select none to add it yourself)?
+ messages
+? What methods should the hook be for (select none to add it yourself)? create
+   create src\hooks\process-message.js
+    force src\services\messages\messages.hooks.js
+   create test\hooks\process-message.test.js
+
+
+12) >feathers generate hook
+? What is the name of the hook? gravatar
+? What kind of hook should it be? before
+? What service(s) should this hook be for (select none to add it yourself)?
+ users
+? What methods should the hook be for (select none to add it yourself)? create
+   create src\hooks\gravatar.js
+    force src\services\users\users.hooks.js
+   create test\hooks\gravatar.test.js
